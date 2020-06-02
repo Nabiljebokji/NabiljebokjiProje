@@ -1,0 +1,126 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template/template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputScript library="js" name="jquery-3.3.1.min.js"/>
+        <h:outputScript library="js" name="bootstrap.js"/>
+    </h:head>     
+    <ui:define name="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h:form id="category-table">
+                        <h:dataTable styleClass=" table table-striped table-hover" value="#{managercontroller.managerlist}" var="man">
+                            <h:column>
+                                <f:facet name="header">id_manager</f:facet>
+                                <h:commandLink action="#{managercontroller.updateForm(man)}" value="#{man.id_manager}">
+                                    <f:ajax execute="@this" render="manager-form"/>
+                                </h:commandLink>
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">name</f:facet>
+                                <h:commandLink action="#{managercontroller.updateForm(man)}" value="#{man.name}">
+                                    <f:ajax execute="@this" render="manager-form"/>
+                                </h:commandLink>
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">last_name</f:facet>
+                                    #{man.last_name}
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">TC</f:facet>
+                                    #{man.TC}
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">age</f:facet>
+                                    #{man.age}
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">phone</f:facet>
+                                    #{man.phone}
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">Email</f:facet>
+                                    #{man.email}
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">DELETE</f:facet>
+
+                                <h:commandButton  onclick="$('.modal').modal('show')" styleClass="btn btn-sm btn-danger" value="Delete" action="#{managercontroller.deleteConfirm(man)}">
+                                    <f:ajax execute="@this" render="delete-modal"/>
+                                </h:commandButton>
+                            </h:column>
+                        </h:dataTable> 
+                    </h:form>
+                    <div class="col-md-6">
+                        <h:form id="manager-form">
+                            <div class="form-group">
+                                <label for="inputName">manager id</label>
+                                <h:inputText  class="form-control" value="#{managercontroller.manager.id_manager}"/>
+
+                                <label for="inputName">manager Name</label>
+                                <h:inputText  class="form-control" value="#{managercontroller.manager.name}"/>
+                                <label for="inputName">manager last_name</label>
+                                <h:inputText  class="form-control" value="#{managercontroller.manager.last_name}"/>
+                                <label for="inputName"> TC</label>
+                                <h:inputText  class="form-control" value="#{managercontroller.manager.TC}"/>
+                                <label for="inputName">age </label>
+                                <h:inputText  class="form-control" value="#{managercontroller.manager.age}"/>
+                                <label for="inputName">phone</label>
+                                <h:inputText  class="form-control" value="#{managercontroller.manager.phone}"/>
+                                <label for="inputName">Email</label>
+                                <h:inputText  class="form-control" value="#{managercontroller.manager.email}"/>
+                            </div>
+                            <div class="form-group">
+                                <div  class="btn-group">
+                                    <h:commandButton  rendered="#{managercontroller.manager.id_manager !=null}" styleClass="btn btn-info" value="update" action="#{managercontroller.update()}">
+                                        <f:ajax execute="manager-form" render="manager-form manager-table"/>
+                                    </h:commandButton>
+                                    <h:commandButton rendered="#{managercontroller.manager.id_manager==null}" styleClass="btn btn-primary" value="create" action="#{managercontroller.create()}">
+                                        <f:ajax execute="manager-form" render="manager-form manager-table"/>
+                                    </h:commandButton>
+                                    <h:commandButton rendered="#{managercontroller.manager.id_manager!=null}" styleClass="btn btn-secondary" value="clear Form" action="#{managercontroller.clearForm()}">
+                                        <f:ajax execute="manager-form" render="manager-form manager-table"/>
+                                    </h:commandButton>
+                                </div>  
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>           
+            <div class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <h:panelGroup layout="block" class="modal-content" id="delete-modal">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                               
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                Are you sure to delete manager object? <br />                              
+                                <b>manager ID:</b> #{managercontroller.manager.id_manager}<br/>
+                                <b>Name:</b> #{managercontroller.manager.name}<br/>
+                                <b>Last name:</b> #{managercontroller.manager.last_name}<br/>
+
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <h:form>
+                                <h:commandButton  onclick="$('.modal').modal('hide')" action="#{managercontroller.deleteConfirm(man)}" value="confirm" styleClass="btn btn-danger">
+                                    <f:ajax execute="@this" render="manager-table manager-form"/>
+                                </h:commandButton>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                            </h:form> 
+                        </div>
+                    </h:panelGroup>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
