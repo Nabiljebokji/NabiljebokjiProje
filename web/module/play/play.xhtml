@@ -14,6 +14,19 @@
             <div class="row">
                 <div class="col-md-6">
                     <h:form id="play_ground-table">
+                        <pre> Page #{playcontroller.page} of #{playcontroller.pageCount} </pre>
+                        <pre>************</pre>
+                        <div>
+                            <h:commandButton action="#{playcontroller.previous()}" value="Previous" styleClass="btn btn-outline-dark" />
+                            <h:commandButton action="#{playcontroller.next()}" value="Next" styleClass="btn btn-outline-dark" />
+
+                        </div>
+                        <pre>***********</pre>
+                        <div>
+                            paly name yazınız  <h:inputText value="#{playcontroller.searchTerm}" />
+                            <h:commandButton action="#{playcontroller.search()}" value="Search" />
+                            <h:commandButton rendered="#{playcontroller.searchTerm!=null}" action="#{playcontroller.clearSearch()}" value="Clear Search" />
+                        </div>
                         <h:dataTable styleClass=" table table-striped table-hover" value="#{playcontroller.playlist}" var="play">
                             <h:column>
                                 <f:facet name="header">id_play</f:facet>

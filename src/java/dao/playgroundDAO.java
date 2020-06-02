@@ -22,22 +22,41 @@ import util.DBConnection;
  * @author Nour
  */
 public class playgroundDAO {
-     private DBConnection db;
+
+    private DBConnection db;
     private Connection c;
     private superDAO superdao;
-    
-    public List<playground> FindAll() {
+
+    public List<playground> FindAll(int page, int pageSize, String searchTerm) {
         List<playground> playlist = new ArrayList();
         try {
-            PreparedStatement pst =this.getC().prepareStatement("select * from play_ground");
-            ResultSet rs =pst.executeQuery();
+            String query = "select * from play_ground";
+
+            if (searchTerm != null) {
+                query += " where play_name like ? ";
+            }
+
+            query += " order by id_play asc limit ? offset ?";
+            PreparedStatement st = this.getC().prepareStatement(query);
+
+            if (searchTerm != null) {
+
+                st.setString(1, "%" + searchTerm + "%");
+                st.setInt(2, pageSize);
+                st.setInt(3, (page - 1) * pageSize);
+            } else {
+                st.setInt(1, pageSize);
+                st.setInt(2, (page - 1) * pageSize);
+            }
+            ResultSet rs = st.executeQuery();
+           
             while (rs.next()) {
                 playground tmp = new playground();
-       // (rs.getInt("id_play"), rs.getString("play_name"), rs.getInt("play_num"));
+                // (rs.getInt("id_play"), rs.getString("play_name"), rs.getInt("play_num"));
                 tmp.setId_play(rs.getLong("id_play"));
-                tmp.setPlay_name( rs.getString("play_name"));
+                tmp.setPlay_name(rs.getString("play_name"));
                 tmp.setPlay_num(rs.getInt("play_num"));
-                 tmp.setPlayvisor(this.getSuperdao().Findplayvisor(tmp.getId_play()));
+                tmp.setPlayvisor(this.getSuperdao().Findplayvisor(tmp.getId_play()));
                 playlist.add(tmp);
             }
         } catch (SQLException ex) {
@@ -48,25 +67,51 @@ public class playgroundDAO {
 
     }
 
+    public int count(String searchTerm) {
+        int count = 0;
+
+        try {
+
+            String query = "select count(id_play) as data from play_ground";
+            if (searchTerm != null) {
+                query += " where play_name like ? ";
+            }
+            PreparedStatement st = this.getC().prepareStatement(query);
+
+            if (searchTerm != null) {
+                st.setString(1, "%" + searchTerm + "%");
+            }
+            ResultSet rs = st.executeQuery();
+
+            rs.next();
+            count = rs.getInt("data");
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return count;
+    }
+
     public void insert(playground play) {
         try {
-            PreparedStatement pst =this.getC().prepareStatement("insert into play_ground(id_play,play_name,play_num) values(?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            pst.setLong(1,play.getId_play());
-            pst.setString(2,play.getPlay_name());
-            pst.setInt(3,play.getPlay_num());
-            
+            PreparedStatement pst = this.getC().prepareStatement("insert into play_ground(id_play,play_name,play_num) values(?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            pst.setLong(1, play.getId_play());
+            pst.setString(2, play.getPlay_name());
+            pst.setInt(3, play.getPlay_num());
+
             pst.executeUpdate();
-            
-              Long id_play = null;
+
+            Long id_play = null;
             ResultSet gk = pst.getGeneratedKeys();
             if (gk.next()) {
                 id_play = gk.getLong(1);
             }
 
             for (supervisor s : play.getPlayvisor()) {
-               
+
                 pst = this.getC().prepareStatement("insert into play_visor (id_play ,id_supervisor) values(?,?)");
-               
+
                 pst.setLong(1, id_play);
                 pst.setLong(2, s.getId_supervisor());
                 pst.executeUpdate();
@@ -79,32 +124,32 @@ public class playgroundDAO {
 
     public void delete(playground play) {
         try {
-              PreparedStatement pst = this.getC().prepareStatement("delete from play_visor where id_play=?");
+            PreparedStatement pst = this.getC().prepareStatement("delete from play_visor where id_play=?");
             pst.setLong(1, play.getId_play());
             pst.executeUpdate();
-            
+
             Statement st = getC().createStatement();
-            st.executeUpdate("delete from play_ground where id_play="+play.getId_play());
-        } catch (SQLException ex){
+            st.executeUpdate("delete from play_ground where id_play=" + play.getId_play());
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
     public void update(playground play) {
-         try {
-            PreparedStatement pst =this.getC().prepareStatement("update play_ground set id_play=?,play_name=?,play_num=? where id_play=?");
-            pst.setLong(1,play.getId_play());
-            pst.setString(2,play.getPlay_name());
-            pst.setInt(3,play.getPlay_num());
-             pst.setLong(4,play.getId_play());
-            pst.executeUpdate();
-              pst = this.getC().prepareStatement("delete from play_visor where id_supervisor=? ");
+        try {
+            PreparedStatement pst = this.getC().prepareStatement("update play_ground set id_play=?,play_name=?,play_num=? where id_play=?");
             pst.setLong(1, play.getId_play());
-            
+            pst.setString(2, play.getPlay_name());
+            pst.setInt(3, play.getPlay_num());
+            pst.setLong(4, play.getId_play());
+            pst.executeUpdate();
+            pst = this.getC().prepareStatement("delete from play_visor where id_supervisor=? ");
+            pst.setLong(1, play.getId_play());
+
             pst.executeUpdate();
 
             for (supervisor c : play.getPlayvisor()) {
-                
+
                 pst = this.getC().prepareStatement("insert into play_visor (id_play , id_supervisor) values (?,?) ");
                 pst.setLong(1, play.getId_play());
                 pst.setLong(2, c.getId_supervisor());
@@ -116,15 +161,18 @@ public class playgroundDAO {
 
         }
     }
+
     public DBConnection getDb() {
-        if(this.db==null)
-            this.db=new DBConnection();
+        if (this.db == null) {
+            this.db = new DBConnection();
+        }
         return db;
     }
 
     public Connection getC() {
-        if(this.c==null)
-            this.c=this.getDb().connect();
+        if (this.c == null) {
+            this.c = this.getDb().connect();
+        }
         return c;
     }
 
@@ -134,5 +182,5 @@ public class playgroundDAO {
         }
         return superdao;
     }
-    
+
 }

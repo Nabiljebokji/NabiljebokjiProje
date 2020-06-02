@@ -20,12 +20,18 @@ import javax.inject.Named;
  */
 @Named
 @SessionScoped
-public class playcontroller implements Serializable {
+public class playcontroller extends BaseBean implements Serializable {
+
+    @Override
+    public int getPageCount() {
+        this.pageCount = (int) Math.ceil(this.getPlaydao().count(this.getSearchTerm()) / (double) pageSize);
+        return pageCount;
+    }
 
     private List<playground> playlist;
-    private  playgroundDAO playdao;
-    private playground  play;
-    
+    private playgroundDAO playdao;
+    private playground play;
+
     @Inject
     private supercontroller superController;
 
@@ -40,33 +46,32 @@ public class playcontroller implements Serializable {
     }
 
     public void deleteConfirm(playground play) {
-         this.play = play;
+        this.play = play;
 
     }
 
     public void clearForm() {
-       this.play = new playground();
+        this.play = new playground();
 
     }
 
     public void update() {
         this.getPlaydao().update(this.play);
-         this.clearForm();
+        this.clearForm();
 
     }
 
     public void create() {
         this.getPlaydao().insert(this.play);
-       this.clearForm();
+        this.clearForm();
     }
 
-   /* public playcontroller() {
+    /* public playcontroller() {
         this.playlist = new ArrayList();
         playdao = new playgroundDAO();
     }*/
-
     public List<playground> getPlaylist() {
-        this.playlist = this.getPlaydao().FindAll();
+        this.playlist = this.getPlaydao().FindAll(page, pageSize, this.getSearchTerm());
         return playlist;
     }
 
@@ -75,8 +80,9 @@ public class playcontroller implements Serializable {
     }
 
     public playgroundDAO getPlaydao() {
-        if(this.playdao==null)
-            this.playdao=new playgroundDAO();
+        if (this.playdao == null) {
+            this.playdao = new playgroundDAO();
+        }
         return playdao;
     }
 
@@ -85,8 +91,9 @@ public class playcontroller implements Serializable {
     }
 
     public playground getPlay() {
-        if(this.play==null)
-            this.play=new playground();
+        if (this.play == null) {
+            this.play = new playground();
+        }
         return play;
     }
 
@@ -102,5 +109,4 @@ public class playcontroller implements Serializable {
         this.superController = superController;
     }
 
-    
 }
