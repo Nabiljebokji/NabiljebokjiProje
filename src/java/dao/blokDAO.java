@@ -80,4 +80,38 @@ public class blokDAO {
 
         }
     }*/
+    
+    
+     public void delete(bloks blok) {
+        try {
+            Statement st = getC().createStatement();
+            st.executeUpdate("delete from bloks where id_blok="+blok.getId_blok());
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public void update(bloks blok, long selectedmanager) {
+        
+         try {
+              PreparedStatement pst =this.getC().prepareStatement("update bloks set id_blok=?, id_manager=? ,blok_name=?,level_no=?,how_many_KM=?,blok_type=?,how_many_home=? where id_blok=?");
+              
+              pst.setLong(1, blok.getId_blok());
+              pst.setLong(2, selectedmanager);
+              pst.setString(3, blok.getBlok_name());
+              pst.setInt(4,blok.getLevel_no());
+              pst.setInt(5, blok.getHow_many_KM());
+              pst.setString(6,blok.getBlok_type());
+              pst.setInt(7,blok.getHow_many_home());
+              pst.setLong(8, blok.getId_blok());
+              
+              pst.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+
+        }
+    }
+    
+    
+    
 }
