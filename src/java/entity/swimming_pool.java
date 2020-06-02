@@ -7,7 +7,7 @@ package entity;
 
 /**
  *
- * @author ahmed
+ * @author ahmed alo
  */
 public class swimming_pool {
     
