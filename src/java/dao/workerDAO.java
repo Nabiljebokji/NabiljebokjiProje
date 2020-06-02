@@ -135,4 +135,22 @@ public class workerDAO {
         }
     }
 
+    public void create(workers worker, Long selectedmanager, Long selectedworktype) {
+        try {
+            PreparedStatement pst = this.getC().prepareStatement("insert into workers (id_workers , id_manager ,name,last_name,age,phone,TC ,id_work_type) values(?,?,?,?,?,?,?,?)");
+            pst.setLong(1, worker.getId_workers());
+            pst.setLong(2, selectedmanager);
+            pst.setString(3, worker.getName());
+            pst.setString(4, worker.getLast_name());
+            pst.setInt(5, worker.getAge());
+            pst.setInt(6, worker.getPhone());
+            pst.setInt(7, worker.getTC());
+            pst.setLong(8, selectedworktype);
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+
+        }
+    }
+
 }
