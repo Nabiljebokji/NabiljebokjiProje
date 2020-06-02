@@ -15,7 +15,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h:form >
+                    <h:form id="workers-table">
                         <pre> page #{workerscontroller.page} of #{workerscontroller.pagecount}</pre>
                         <div class="btn-group">
                             <h:commandButton action="#{workerscontroller.previous()}" value="previous" styleClass="btn btn-outline-dark"/>
@@ -25,6 +25,7 @@
                             <h:column>
                                 <f:facet name="header">id_workers</f:facet>
                                 <h:commandLink action="#{workerscontroller.updateForm(work)}"  value=" #{work.id_workers}" >
+                                    <f:ajax execute="@this" render="workers-form"/>
                                 </h:commandLink>
                             </h:column>
                             <h:column>
@@ -34,6 +35,7 @@
                             <h:column> 
                                 <f:facet name="header">name</f:facet>
                                 <h:commandLink action="#{workerscontroller.updateForm(work)}" value="#{work.name}">
+                                    <f:ajax execute="@this" render="workers-form"/>
                                 </h:commandLink>
                             </h:column>
                             <h:column> 
@@ -93,13 +95,16 @@
                                         </div>
                                     </h:form>
                                 </div>
-                                <div >
+                                <div class="form-group">
                                     <div  class="btn-group">
                                         <h:commandButton  rendered="#{workerscontroller.worker.id_workers !=null}" styleClass="btn btn-info" value="update" action="#{workerscontroller.update()}">
+                                            <f:ajax execute="workers-form" render="workers-form workers-table"/>
                                         </h:commandButton>
                                         <h:commandButton rendered="#{workerscontroller.worker.id_workers ==null}" styleClass="btn btn-primary" value="create" action="#{workerscontroller.create()}">
+                                            <f:ajax execute="workers-form" render="workers-form workers-table"/>
                                         </h:commandButton>
                                         <h:commandButton rendered="#{workerscontroller.worker.id_workers!=null}" styleClass="btn btn-secondary" value="clear Form" action="#{workerscontroller.clearForm()}">
+                                            <f:ajax execute="workers-form" render="workers-form workers-table"/>          
                                         </h:commandButton>
                                         <h:commandButton  styleClass="btn btn-sm btn-danger" value="Delete" action="#{workerscontroller.delete()}"/>
                                     </div>  
