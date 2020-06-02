@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template/template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputScript library="js" name="jquery-3.3.1.min.js"/>
+        <h:outputScript library="js" name="bootstrap.js"/>
+    </h:head>     
+    <ui:define name="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h:form >
+                        <pre> page #{workerscontroller.page} of #{workerscontroller.pagecount}</pre>
+                        <div class="btn-group">
+                            <h:commandButton action="#{workerscontroller.previous()}" value="previous" styleClass="btn btn-outline-dark"/>
+                            <h:commandButton action="#{workerscontroller.next()}" value="next" styleClass="btn btn-outline-dark"/>
+                        </div>
+                        <h:dataTable styleClass=" table table-striped table-hover" value="#{workerscontroller.worklist}" var="work">
+                            <h:column>
+                                <f:facet name="header">id_workers</f:facet>
+                                <h:commandLink action="#{workerscontroller.updateForm(work)}"  value=" #{work.id_workers}" >
+                                </h:commandLink>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">id_managers</f:facet>
+                                    #{work.manager.name}
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">name</f:facet>
+                                <h:commandLink action="#{workerscontroller.updateForm(work)}" value="#{work.name}">
+                                </h:commandLink>
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">last_name</f:facet>
+                                    #{work.last_name}
+                            </h:column> 
+                            <h:column> 
+                                <f:facet name="header">phone</f:facet>
+                                    #{work.phone}
+                            </h:column> 
+                            <h:column> 
+                                <f:facet name="header">age</f:facet>
+                                    #{work.age}
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">TC</f:facet>
+                                    #{work.TC}
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">work_type</f:facet>
+                                    #{work.work_type.work_type}
+                            </h:column>
+                        </h:dataTable> 
+                    </h:form>
+                    <div class="col-md-6">
+                        <h:form id="workers-form">
+                            <div class="form-group">
+                                <label for="inputName">worker id</label>
+                                <h:inputText  class="form-control" value="#{workerscontroller.worker.id_workers}"/>
+                                <div class="col-md-5">
+                                    <h:form>
+                                        <div class="from-group">
+                                            <label for="selectmanager">manager_id</label>
+                                            <h:selectOneMenu styleClass="custom-select" id="selectmanager" value="#{workerscontroller.selectedmanager}">
+                                                <f:selectItems value="#{workerscontroller.managerlist}" var="manager" itemValue="#{manager.id_manager}" itemLabel="#{manager.name}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </h:form>
+                                </div>
+                                <label for="inputName">worker Name</label>
+                                <h:inputText  class="form-control" value="#{workerscontroller.worker.name}"/>
+                                <label for="inputName"> last_name</label>
+                                <h:inputText  class="form-control" value="#{workerscontroller.worker.last_name}"/>
+                                <label for="inputName">age </label>
+                                <h:inputText  class="form-control" value="#{workerscontroller.worker.age}"/>
+                                <label for="inputName">phone</label>
+                                <h:inputText  class="form-control" value="#{workerscontroller.worker.phone}"/>
+                                <label for="inputName"> TC</label>
+                                <h:inputText  class="form-control" value="#{workerscontroller.worker.TC}"/>
+                                <div class="col-md-5">
+                                    <h:form>
+                                        <div class="from-group">
+                                            <label for="selectmanager">work_type</label>
+                                            <h:selectOneMenu styleClass="custom-select" id="selectedworktype" value="#{workerscontroller.selectedworktype}">
+                                                <f:selectItems value="#{workerscontroller.worktypelist}" var="work_type" itemValue="#{work_type.id_work_type}" itemLabel="#{work_type.work_type}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </h:form>
+                                </div>
+                                <div >
+                                    <div  class="btn-group">
+                                        <h:commandButton  rendered="#{workerscontroller.worker.id_workers !=null}" styleClass="btn btn-info" value="update" action="#{workerscontroller.update()}">
+                                        </h:commandButton>
+                                        <h:commandButton rendered="#{workerscontroller.worker.id_workers ==null}" styleClass="btn btn-primary" value="create" action="#{workerscontroller.create()}">
+                                        </h:commandButton>
+                                        <h:commandButton rendered="#{workerscontroller.worker.id_workers!=null}" styleClass="btn btn-secondary" value="clear Form" action="#{workerscontroller.clearForm()}">
+                                        </h:commandButton>
+                                        <h:commandButton  styleClass="btn btn-sm btn-danger" value="Delete" action="#{workerscontroller.delete()}"/>
+                                    </div>  
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>           
+        </div>
+    </ui:define>
+</ui:composition>
+
+
+
