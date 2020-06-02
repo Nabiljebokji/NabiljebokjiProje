@@ -18,7 +18,7 @@ import util.DBConnection;
 
 /**
  *
- * @author Ahmed
+ * @author Ahmed Alo
  */
 public class peopleDAO{
 
