@@ -5,14 +5,19 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <h:form>
-       
-        
-         <pre> page #{supercontroller.page} of #{supercontroller.pagecount}</pre>
+
+
+        <pre> page #{supercontroller.page} of #{supercontroller.pagecount}</pre>
         <div class="btn-group">
             <h:commandButton action="#{supercontroller.previous()}" value="previous" styleClass="btn btn-outline-dark"/>
             <h:commandButton action="#{supercontroller.next()}" value="next" styleClass="btn btn-outline-dark"/>
         </div>
-         
+
+        <div>
+            Supervisor name yazınız  <h:inputText value="#{supercontroller.searchTerm}" />
+            <h:commandButton action="#{supercontroller.search()}" value="Search" />
+            <h:commandButton rendered="#{supercontroller.searchTerm!=null}" action="#{supercontroller.clearSearch()}" value="Clear Search" />
+        </div>
     </h:form>
 
 </ui:composition>

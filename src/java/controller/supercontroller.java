@@ -23,31 +23,34 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class supercontroller implements Serializable {
-   private supervisor supervisor;
+
+    private supervisor supervisor;
     private List<supervisor> superlist;
     private superDAO superdao;
     private managerDAO managerdao;
     private List<manager> managerlist;
 
-      
-     private int page=1;
-    private int pagesize=10;
-    private int  pagecount;
+    private int page = 1;
+    private int pagesize = 2;
+    private int pagecount;
 
-    
-    public void next(){
-        if(this.page==this.getPagecount())
-            this.page=1;
-        else
-        this.page++;
+    public void next() {
+        if (this.page == this.getPagecount()) {
+            this.page = 1;
+        } else {
+            this.page++;
+        }
     }
-    public void previous(){
-        if(this.page==1)
-            this.page=this.getPagecount();
-        else
-        this.page--;
+
+    public void previous() {
+        if (this.page == 1) {
+            this.page = this.getPagecount();
+        } else {
+            this.page--;
+        }
     }
-            public int getPage() {
+
+    public int getPage() {
         return page;
     }
 
@@ -64,39 +67,41 @@ public class supercontroller implements Serializable {
     }
 
     public int getPagecount() {
-        
-        this.pagecount= (int)Math.ceil(this.getSuperdao().count()/(double)pagesize);
+
+        this.pagecount = (int) Math.ceil(this.getSuperdao().count(searchTerm) / (double) pagesize);
         return pagecount;
     }
-      @PostConstruct
-    public void init (){
-        supervisor = new supervisor() ; 
+
+    @PostConstruct
+    public void init() {
+        supervisor = new supervisor();
     }
-     
+
     public List<manager> getManagerlist() {
-        this.managerlist=this.getManagerdao().getmanager();
+        this.managerlist = this.getManagerdao().getmanager();
         return managerlist;
     }
 
     public void setManagerlist(List<manager> managerlist) {
         this.managerlist = managerlist;
     }
-    
-   
 
     public managerDAO getManagerdao() {
-        if(this.managerdao==null)
-            this.managerdao=new managerDAO();
+        if (this.managerdao == null) {
+            this.managerdao = new managerDAO();
+        }
         return managerdao;
     }
+
     public void delete() {
         this.getSuperdao().delete(this.supervisor);
-        this.supervisor= new supervisor();
+        this.supervisor = new supervisor();
     }
+
     public void updateForm(supervisor s) {
-        this.supervisor =s;
-        
-}
+        this.supervisor = s;
+
+    }
 
     public void deleteConfirm(supervisor supervisor) {
         this.supervisor = supervisor;
@@ -113,10 +118,9 @@ public class supercontroller implements Serializable {
 
     public void create() {
         this.getSuperdao().create(this.supervisor);
-       this.clearForm();
+        this.clearForm();
 
     }
-
 
     public supercontroller() {
         this.superlist = new ArrayList();
@@ -132,7 +136,7 @@ public class supercontroller implements Serializable {
     }
 
     public List<supervisor> getSuperlist() {
-        this.superlist=this.getSuperdao().findAll(page, pagesize);
+        this.superlist = this.getSuperdao().findAll(page, pagesize, this.getSearchTerm());
         return superlist;
     }
 
@@ -146,10 +150,24 @@ public class supercontroller implements Serializable {
 
     public void setSuperdao(superDAO superdao) {
         this.superdao = superdao;
+
+    }
+    private String searchTerm;
+
+    public void search() {
+        this.setPage(1);
     }
 
-  
+    public void clearSearch() {
+        this.setSearchTerm(null);
+    }
 
+    public String getSearchTerm() {
+        return searchTerm;
+    }
+
+    public void setSearchTerm(String searchTerm) {
+        this.searchTerm = searchTerm;
+    }
 
 }
-
