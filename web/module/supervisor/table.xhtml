@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+               xmlns:h="http://xmlns.jcp.org/jsf/html"
+               xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+               xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:form id="supervisor-table">
+                       
+                        <h:dataTable styleClass=" table table-striped table-hover" value="#{supercontroller.superlist}" var="s">
+                            <h:column>
+                                <f:facet name="header">id_supervisor</f:facet>
+                                <h:commandLink action="#{supercontroller.updateForm(s)}" value="#{s.id_supervisor}">
+                                </h:commandLink>
+                        </h:column>
+                         <h:column> 
+                            <f:facet name="header">name</f:facet>
+                            #{s.name}
+                         </h:column>
+                             <h:column> 
+                            <f:facet name="header">last_name</f:facet>
+                            #{s.last_name}
+                         </h:column>
+                        <h:column>
+                            <f:facet name="header">manager</f:facet>
+                                #{s.manager.name}
+                        </h:column>
+                       
+                     
+                    </h:dataTable> 
+                </h:form>
+    
+</ui:composition>
+

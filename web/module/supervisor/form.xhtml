@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:form id="supervisor-form">
+        <div class="form-group">
+            <label for="inputName">id_supervisor</label>
+            <h:inputText  class="form-control" value="#{supercontroller.supervisor.id_supervisor}"/>
+            <label for="inputName">Name</label>
+            <h:inputText  class="form-control" value="#{supercontroller.supervisor.name}"/>
+            <label for="inputName">last_name</label>
+            <h:inputText  class="form-control" value="#{supercontroller.supervisor.last_name}"/>
+            <div class="col-md-5">
+                <h:form>
+                    <div class="from-group">
+                        <label for="selectmanager">manager_id</label>
+                        <h:selectOneMenu styleClass="custom-select" id="selectmanager" value="#{supercontroller.supervisor.manager}" converter="managerConverter">
+                            <f:selectItems value="#{supercontroller.managerlist}" var="manager" itemValue="#{manager}" itemLabel="#{manager.name}"/>
+                        </h:selectOneMenu>
+                    </div>
+                </h:form>
+            </div>
+            <div class="form-group">
+                <div class="btn-group">
+                    <h:commandButton  rendered="#{supercontroller.supervisor.id_supervisor!=null}" styleClass="btn btn-info" value="update" action="#{supercontroller.update()}">
+
+                    </h:commandButton>
+                    <h:commandButton rendered="#{supercontroller.supervisor.id_supervisor==null}" styleClass="btn btn-primary" value="create" action="#{supercontroller.create()}">
+                    </h:commandButton>
+                    <h:commandButton rendered="#{supercontroller.supervisor.id_supervisor!=null}" styleClass="btn btn-secondary" value="clear Form" action="#{supercontroller.clearForm()}">
+
+                    </h:commandButton>
+                    <h:commandButton  styleClass="btn btn-sm btn-danger" value="Delete" action="#{supercontroller.delete()}"/>
+                </div>  
+            </div>
+        </div>
+    </h:form>
+
+</ui:composition>
+
