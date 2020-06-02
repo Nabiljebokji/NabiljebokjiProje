@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+               xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template/template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <ui:define name="content">
+            <div class="row">
+                <div class="col-md-6">
+                    <h:form id="swimming-pool-table">
+                        <h:dataTable styleClass=" table table-striped table-hover" value="#{poolcontroller.poollist}" var="pool">
+                            <h:column>
+                                <f:facet name="header">id_pool</f:facet>
+                                 <h:commandLink action="#{poolcontroller.updateForm(pool)}" value=" #{pool.id_pool}">
+                                    <f:ajax execute="@this" render="swimming_pool-form"/>
+                                </h:commandLink>
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">length</f:facet>
+                                <h:commandLink action="#{poolcontroller.updateForm(pool)}" value="#{pool.length}">
+                                    <f:ajax execute="@this" render="swimming_pool-form"/>
+                                </h:commandLink>
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">width</f:facet>
+                                <h:commandLink action="#{poolcontroller.updateForm(pool)}" value="#{pool.width}">
+                                    <f:ajax execute="@this" render="swimming_pool-form"/>
+                                </h:commandLink>
+                            </h:column>
+                             <h:column> 
+                                <f:facet name="header">depth</f:facet>
+                                <h:commandLink action="#{poolcontroller.updateForm(pool)}" value="#{pool.depth}">
+                                    <f:ajax execute="@this" render="swimming_pool-form"/>
+                                </h:commandLink>
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">DELETE</f:facet>
+
+                                <h:commandButton  onclick="$('.modal').modal('show')" styleClass="btn btn-sm btn-danger" value="Delete" action="#{poolcontroller.deleteConfirm(pool)}">
+                                    <f:ajax execute="@this" render="delete-modal"/>
+                                </h:commandButton>
+                            </h:column>
+                        </h:dataTable> 
+                    </h:form>
+                    <div class="col-md-6">
+                        <h:form id="swimming_pool-form">
+                             <div class="form-group"> 
+                                <label for="inputName">id_pool</label>
+                                <h:inputText  class="form-control" value="#{poolcontroller.pool.id_pool}"/>
+                            </div>
+                            <div class="form-group"> 
+                                <label for="inputName">length</label>
+                                <h:inputText  class="form-control" value="#{poolcontroller.pool.length}"/>
+                            </div>
+                              <div class="form-group">
+                                 <label for="inputName">width</label>
+                                <h:inputText  class="form-control" value="#{poolcontroller.pool.width}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputName">depth</label>
+                                <h:inputText  class="form-control" value="#{poolcontroller.pool.depth}"/>
+                            </div>
+                            <div class="form-group">
+                                <div  class="btn-group">
+                                    <h:commandButton  rendered="#{poolcontroller.pool.id_pool !=null}" styleClass="btn btn-info" value="update" action="#{poolcontroller.update()}">
+                                        <f:ajax execute="swimming_pool-form" render="swimming_pool-form swimming_pool-table"/>
+                                    </h:commandButton>
+                                    <h:commandButton rendered="#{poolcontroller.pool.id_pool==null}" styleClass="btn btn-primary" value="create" action="#{poolcontroller.create()}">
+                                        <f:ajax execute="swimming_pool-form" render="swimmimng_pool-form swimming_pool-table"/>
+                                    </h:commandButton>
+                                    <h:commandButton rendered="#{poolcontroller.pool.id_pool !=null}" styleClass="btn btn-secondary" value="clear Form" action="#{poolcontroller.clearForm()}">
+                                        <f:ajax execute="swimming_pool-form" render="swimming_pool-form swimming_pool-table"/>
+                                    </h:commandButton>
+                                </div>  
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>           
+            <div class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <h:panelGroup layout="block" class="modal-content" id="delete-modal">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                Are you sure to delete pool object? <br />                              
+                                <b>pool ID:</b> #{poolcontroller.pool.id_pool}<br/>
+                                <b>poollength:</b> #{poolcontroller.pool.length}<br/>
+                                <b>widthe:</b> #{poolcontroller.pool.width}<br/>
+                                <b>depth:</b> #{poolcontroller.pool.depth}<br/>
+
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <h:form>
+                                <h:commandButton  onclick="$('.modal').modal('hide')" action="#{poolcontroller.deleteConfirm(pool)}" value="confirm" styleClass="btn btn-danger">
+                                    <f:ajax execute="@this" render="swimming_pool-table swimming_pool-form"/>
+                                </h:commandButton>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                            </h:form> 
+                        </div>
+                    </h:panelGroup>
+                </div>
+            </div>
+       </ui:define>
+</ui:composition>
