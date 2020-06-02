@@ -39,7 +39,18 @@ public class workerscontroller implements Serializable {
     
    
      
+public void updateForm(workers wor) {
+        this.worker =wor;
+         this.selectedmanager=this.worker.getManager().getId_manager();
+       this.selectedworktype=this.worker.getWork_type().getId_work_type();
 
+    }
+ 
+
+    public void delete() {
+        this.getWorkerdao().delete(this.worker);
+        this.worker = new workers();
+    }
 
     public void clearForm() {
         this.worker= new workers();
