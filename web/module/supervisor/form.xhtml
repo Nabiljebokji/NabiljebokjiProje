@@ -16,7 +16,7 @@
             <h:message for="supername" style="color: red" />
 
             <label for="inputName">last_name</label>
-            <h:inputText id="lastname" class="form-control" value="#{supercontroller.supervisor.last_name}" required="true" requiredMessage="lutfen soyadi girinz" />
+            <h:inputText id="lastname" class="form-control" value="#{supercontroller.supervisor.last_name}"  validator="#{validationBean.validate}" />
             <h:message for="lastname" style="color: red" />
 
             <div class="col-md-5">

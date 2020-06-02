@@ -57,9 +57,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputName">play_num</label>
-                                <h:inputText  id="palnum" class="form-control" value="#{playcontroller.play.play_num}"  validatorMessage="en az 2 en fazla 5" >
-                                    <f:validateLength minimum="2" maximum="5" />   
-                                </h:inputText>
+                                <h:inputText  id="palnum" class="form-control" value="#{playcontroller.play.play_num}"  validator="#{validationBean.validate}" />
                                 <h:message for="palnum" style="color: red" />
                             </div>
                             <div class="form-group">
