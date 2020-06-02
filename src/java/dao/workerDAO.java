@@ -92,10 +92,6 @@ public class workerDAO {
 
         }
     }*/
-   
-
-   
-
     public DBConnection getDb() {
         if (this.db == null) {
             this.db = new DBConnection();
@@ -110,6 +106,33 @@ public class workerDAO {
         return c;
     }
 
-   
+    public void delete(workers wor) {
+        try {
+            PreparedStatement pst = this.getC().prepareStatement("delete from workers where id_workers=?");
+            pst.setLong(1, wor.getId_workers());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public void update(workers wor, long selectedmanager, long selectedworktype) {
+        try {
+            PreparedStatement pst = this.getC().prepareStatement("update workers set id_workers=? , id_manager=?,name=?,last_name=?,age=?,phone=?,TC=?,id_work_type=? where id_workers=? ");
+            pst.setLong(1, wor.getId_workers());
+            pst.setLong(2, selectedmanager);
+            pst.setString(3, wor.getName());
+            pst.setString(4, wor.getLast_name());
+            pst.setInt(5, wor.getAge());
+            pst.setInt(6, wor.getPhone());
+            pst.setInt(7, wor.getTC());
+            pst.setLong(8, selectedworktype);
+            pst.setLong(9, wor.getId_workers());
+
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 
 }
