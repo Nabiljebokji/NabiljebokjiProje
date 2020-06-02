@@ -43,15 +43,24 @@
                         <h:form id="play_ground-form">
                             <div class="form-group"> 
                                 <label for="inputName">id_play</label>
-                                <h:inputText  class="form-control" value="#{playcontroller.play.id_play}"/>
+                                <h:inputText id="idplay" class="form-control" value="#{playcontroller.play.id_play}" validatorMessage="en az 2 en fazla 5" >
+                                    <f:validateLength minimum="2" maximum="5" />   
+                                </h:inputText>
+                                <h:message for="idplay" style="color: red" />
                             </div>
                             <div class="form-group"> 
                                 <label for="inputName">play name</label>
-                                <h:inputText  class="form-control" value="#{playcontroller.play.play_name}"/>
+                                <h:inputText id="playname"  class="form-control" value="#{playcontroller.play.play_name}" validatorMessage="en az 2 en fazla 5" >
+                                    <f:validateLength minimum="3" maximum="6" />   
+                                </h:inputText>
+                                <h:message for="playname" style="color: red" />
                             </div>
                             <div class="form-group">
                                 <label for="inputName">play_num</label>
-                                <h:inputText  class="form-control" value="#{playcontroller.play.play_num}"/>
+                                <h:inputText  id="palnum" class="form-control" value="#{playcontroller.play.play_num}"  validatorMessage="en az 2 en fazla 5" >
+                                    <f:validateLength minimum="2" maximum="5" />   
+                                </h:inputText>
+                                <h:message for="palnum" style="color: red" />
                             </div>
                             <div class="form-group">
                                 <label for="playvisor">selcet playvisor</label>

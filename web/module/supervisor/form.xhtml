@@ -8,11 +8,17 @@
     <h:form id="supervisor-form">
         <div class="form-group">
             <label for="inputName">id_supervisor</label>
-            <h:inputText  class="form-control" value="#{supercontroller.supervisor.id_supervisor}"/>
+            <h:inputText id="idsuper" class="form-control" value="#{supercontroller.supervisor.id_supervisor}" required="true" requiredMessage="lutfen id girinz" />
+            <h:message for="idsuper" style="color: red" />
+
             <label for="inputName">Name</label>
-            <h:inputText  class="form-control" value="#{supercontroller.supervisor.name}"/>
+            <h:inputText id="supername" class="form-control" value="#{supercontroller.supervisor.name}" required="true" requiredMessage="lutfen adi girinz" />
+            <h:message for="supername" style="color: red" />
+
             <label for="inputName">last_name</label>
-            <h:inputText  class="form-control" value="#{supercontroller.supervisor.last_name}"/>
+            <h:inputText id="lastname" class="form-control" value="#{supercontroller.supervisor.last_name}" required="true" requiredMessage="lutfen soyadi girinz" />
+            <h:message for="lastname" style="color: red" />
+
             <div class="col-md-5">
                 <h:form>
                     <div class="from-group">
