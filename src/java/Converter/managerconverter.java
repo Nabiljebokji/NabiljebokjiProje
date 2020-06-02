@@ -14,7 +14,7 @@ import javax.faces.convert.FacesConverter;
 
 /**
  *
- * @author Nour
+ * @author zak
  */
 @FacesConverter(value="managerConverter")
 public class managerconverter implements Converter{
