@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template/template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputScript library="js" name="jquery-3.3.1.min.js"/>
+        <h:outputScript library="js" name="bootstrap.js"/>
+    </h:head>     
+    <ui:define name="content">
+ <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h:form id="play_ground-table">
+                        <h:dataTable styleClass=" table table-striped table-hover" value="#{playcontroller.playlist}" var="play">
+                            <h:column>
+                                <f:facet name="header">id_play</f:facet>
+                                <h:commandLink action="#{playcontroller.updateForm(play)}" value=" #{play.id_play}">
+                                    <f:ajax execute="@this" render="play_ground-form"/>
+                                </h:commandLink>
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">play name</f:facet>
+                                    #{play.play_name}
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">play_num</f:facet>
+                                    #{play.play_num}
+                            </h:column>
+                            <h:column> 
+                                <f:facet name="header">supervisor name</f:facet>
+                                <ul>
+                                    <ui:repeat value="#{play.playvisor}" var="supervisor" >
+                                        <li>#{supervisor.name}</li>
+                                    </ui:repeat>
+                                </ul>
+                            </h:column>
+                        </h:dataTable> 
+                    </h:form>
+                    <div class="col-md-6">
+                        <h:form id="play_ground-form">
+                            <div class="form-group"> 
+                                <label for="inputName">id_play</label>
+                                <h:inputText  class="form-control" value="#{playcontroller.play.id_play}"/>
+                            </div>
+                            <div class="form-group"> 
+                                <label for="inputName">play name</label>
+                                <h:inputText  class="form-control" value="#{playcontroller.play.play_name}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputName">play_num</label>
+                                <h:inputText  class="form-control" value="#{playcontroller.play.play_num}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="playvisor">selcet playvisor</label>
+                                <h:selectManyMenu value="#{playcontroller.play.playvisor}" styleClass="custom-select" converter="supervisorConverter" >
+                                    <f:selectItems value="#{playcontroller.superController.superlist}" var="supervisor" itemValue="#{supervisor}" itemLabel="#{supervisor.name}" />
+                                </h:selectManyMenu>
+
+                            </div>
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <h:commandButton  action="#{playcontroller.create}" value="Create"  styleClass="btn btn-primary " />
+
+                                    <h:commandButton  action="#{playcontroller.update}" value="Update" styleClass="btn btn-primary " />
+
+                                    <h:commandButton  action="#{playcontroller.delete}" value="Delete" styleClass="btn btn-danger " />
+
+                                    <h:commandButton  styleClass="btn btn-secondary" value="Clear form" action="#{playcontroller.clearForm()}" />
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
