@@ -10,7 +10,7 @@
         <h:outputScript library="js" name="bootstrap.js"/>
     </h:head>     
     <ui:define name="content">
- <div class="container">
+        <div class="container">
             <div class="row">
                 <div class="col-md-6">
                     <h:form id="play_ground-table">
@@ -62,13 +62,19 @@
                             </div>
                             <div class="form-group">
                                 <div class="form-group">
-                                    <h:commandButton  action="#{playcontroller.create}" value="Create"  styleClass="btn btn-primary " />
+                                    <h:commandButton  action="#{playcontroller.create}" value="Create"  styleClass="btn btn-primary " >
 
-                                    <h:commandButton  action="#{playcontroller.update}" value="Update" styleClass="btn btn-primary " />
-
-                                    <h:commandButton  action="#{playcontroller.delete}" value="Delete" styleClass="btn btn-danger " />
-
-                                    <h:commandButton  styleClass="btn btn-secondary" value="Clear form" action="#{playcontroller.clearForm()}" />
+                                        <f:ajax execute="play_ground-form" render="play_ground-form play_ground-table"/>
+                                    </h:commandButton>
+                                    <h:commandButton  action="#{playcontroller.update}" value="Update" styleClass="btn btn-primary " >
+                                        <f:ajax execute="play_ground-form" render="play_ground-form play_ground-table"/>
+                                    </h:commandButton>
+                                    <h:commandButton  action="#{playcontroller.delete}" value="Delete" styleClass="btn btn-danger " >
+                                        <f:ajax execute="play_ground-form" render="play_ground-form play_ground-table"/>
+                                    </h:commandButton>
+                                    <h:commandButton  styleClass="btn btn-secondary" value="Clear form" action="#{playcontroller.clearForm()}" >
+                                        <f:ajax execute="play_ground-form" render="play_ground-form play_ground-table"/>
+                                    </h:commandButton>
                                 </div>
                             </div>
                         </h:form>

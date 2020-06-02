@@ -26,15 +26,17 @@
             <div class="form-group">
                 <div class="btn-group">
                     <h:commandButton  rendered="#{supercontroller.supervisor.id_supervisor!=null}" styleClass="btn btn-info" value="update" action="#{supercontroller.update()}">
-
+                        <f:ajax execute="supervisor-form" render="supervisor-form supervisor-table"/>
                     </h:commandButton>
                     <h:commandButton rendered="#{supercontroller.supervisor.id_supervisor==null}" styleClass="btn btn-primary" value="create" action="#{supercontroller.create()}">
+                        <f:ajax execute="supervisor-form" render="supervisor-form supervisor-table"/>
                     </h:commandButton>
                     <h:commandButton rendered="#{supercontroller.supervisor.id_supervisor!=null}" styleClass="btn btn-secondary" value="clear Form" action="#{supercontroller.clearForm()}">
+                        <f:ajax execute="supervisor-form" render="supervisor-form supervisor-table"/>
 
                     </h:commandButton>
                     <h:commandButton  styleClass="btn btn-sm btn-danger" value="Delete" action="#{supercontroller.delete()}"/>
-                </div>  
+                </div> 
             </div>
         </div>
     </h:form>
