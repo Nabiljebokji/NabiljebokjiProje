@@ -29,5 +29,5 @@ dosyalama işlemleri
 
 içeriği : 
 crud create read upadate delete clear form işlemleri
- ve xhtml ajax ,sayfalama ,login-logoutFilter
+ ve xhtml ajax, template ,sayfalama ,login-logoutFilter
  -------------------------------------- 
