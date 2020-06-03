@@ -32,3 +32,21 @@ içeriği :
 crud create read upadate delete clear form işlemleri
  ve xhtml ajax,converter,pagination worker icin(sayfalama), template ,login-logoutFilter
  -------------------------------------- 
+ mohamadzakaria kannas 02150001614
+
+yaklaşık 2 tablo yaptım 
+one to many manager to bloks
+one to many manager to people
+one to many manager to workers 
+one to many home to bloks
+one to one home to people
+ 
+converter maneger sinifi icin
+dosyalama işlemleri 
+
+converter home sinifi icin
+dosyalama işlemleri 
+
+içeriği : 
+crud create read upadate delete clear form işlemleri
+ ve xhtml ajax,converter.
