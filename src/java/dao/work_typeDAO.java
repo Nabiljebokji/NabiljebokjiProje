@@ -20,7 +20,9 @@ import util.DBConnection;
  */
 public class work_typeDAO {
     
-     private DBConnection db;
+     private DBConnection db; 
+     
+     /**/
     private Connection c;
      public List<work_type> allfind() {
         List<work_type> worktypelist = new ArrayList();
