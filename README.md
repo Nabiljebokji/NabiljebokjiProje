@@ -19,7 +19,7 @@ template ,pagination , dosyalama
 -------------------------------------- 
 Nabil jebokji 02160001065
 
-yaklaşık 3 tablo yaptım 
+yaklaşık 3 tablo yaptım (workers- work type – bloks)
 one to many manager to workers 
 one to many worktype to workers 
 many to many swimmingPool to workers 
