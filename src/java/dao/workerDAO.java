@@ -135,7 +135,8 @@ public class workerDAO {
         }
     }
 
-    public void create(workers worker, Long selectedmanager, Long selectedworktype) {
+   
+     public void create(workers worker, Long selectedmanager, Long selectedworktype) {
         try {
             PreparedStatement pst = this.getC().prepareStatement("insert into workers (id_workers , id_manager ,name,last_name,age,phone,TC ,id_work_type) values(?,?,?,?,?,?,?,?)");
             pst.setLong(1, worker.getId_workers());
@@ -149,8 +150,33 @@ public class workerDAO {
             pst.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-
+        }
+        try {
+            PreparedStatement pst = this.getC().prepareStatement("insert into workers_blok"
+                    + " (id_blok,id_workers) values(?,?) ");
+            pst.setLong(1, worker.getId_workers());
+            pst.setLong(2, worker.getId_workers());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        try {
+            PreparedStatement pst = this.getC().prepareStatement("insert into pool_workers"
+                    + " (id_pool,id_workers) values(?,?) ");
+            pst.setLong(1, worker.getId_workers());
+            pst.setLong(2, worker.getId_workers());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        try {
+            PreparedStatement pst = this.getC().prepareStatement("insert into play_ground_workers"
+                    + " (id_play,id_workers) values(?,?) ");
+            pst.setLong(1, worker.getId_workers());
+            pst.setLong(2, worker.getId_workers());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
     }
-
 }
