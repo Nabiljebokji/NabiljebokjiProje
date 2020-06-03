@@ -55,4 +55,14 @@ içeriği :
 crud create read upadate delete clear form işlemleri
  ve xhtml ajax,converter.
   -------------------------------------- 
-  
+Ahmed ALO   02180201086
+
+yaklaşık 2 tablo yaptım 
+many to many swimming_pool to workers
+one to one swimming_pool to worktipe
+one to many people to manager 
+one to one home to people
+
+içeriği : 
+crud create read upadate delete clear form işlemleri
+ ve xhtml Ajax .
