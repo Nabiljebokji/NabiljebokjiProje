@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.2.12-MariaDB - mariadb.org binary distribution
+-- Server version:               10.3.12-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win64
 -- HeidiSQL Version:             9.4.0.5125
 -- --------------------------------------------------------
@@ -10,11 +10,6 @@
 /*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
-
--- Dumping database structure for nur
-CREATE DATABASE IF NOT EXISTS `nur` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `nur`;
 
 -- Dumping structure for table nur.bloks
 CREATE TABLE IF NOT EXISTS `bloks` (
@@ -30,13 +25,11 @@ CREATE TABLE IF NOT EXISTS `bloks` (
   CONSTRAINT `FK_bloks_manager` FOREIGN KEY (`id_manager`) REFERENCES `manager` (`id_manager`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table nur.bloks: ~4 rows (approximately)
+-- Dumping data for table nur.bloks: ~2 rows (approximately)
 /*!40000 ALTER TABLE `bloks` DISABLE KEYS */;
 INSERT INTO `bloks` (`id_blok`, `id_manager`, `blok_name`, `level_no`, `how_many_KM`, `blok_type`, `how_many_home`) VALUES
 	(1, 1, 'nabil', 1, 1, 'b', 11),
-	(2, 1, 'nabil', 11, 11, 'b', 11),
-	(3, 1, 'Nur', 0, 0, '', 0),
-	(4, 1, '', 0, 0, '', 0);
+	(2, 1, 'nabil', 11, 11, 'b', 11);
 /*!40000 ALTER TABLE `bloks` ENABLE KEYS */;
 
 -- Dumping structure for table nur.document
@@ -70,17 +63,15 @@ CREATE TABLE IF NOT EXISTS `home` (
   CONSTRAINT `FK_home_bloks` FOREIGN KEY (`id_blok`) REFERENCES `bloks` (`id_blok`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table nur.home: ~8 rows (approximately)
+-- Dumping data for table nur.home: ~6 rows (approximately)
 /*!40000 ALTER TABLE `home` DISABLE KEYS */;
 INSERT INTO `home` (`id_home`, `floor_num`, `door_num`, `site_payments`, `id_blok`) VALUES
-	(0, 0, 0, 0, 1),
-	(1, 5, 5, 5, 1),
-	(2, 55, 55, 55, 0),
-	(3, 55, 55, 55, 0),
-	(4, 5, 5, 5, 0),
-	(5, 55, 55, 55, 0),
-	(7, 32, 22, 32, 2),
-	(8, 0, 0, 0, 1);
+	(1, 5, 5, 90, 1),
+	(2, 2, 2, 90, 1),
+	(3, 3, 3, 90, 2),
+	(4, 4, 4, 90, 2),
+	(5, 5, 5, 90, 1),
+	(7, 7, 6, 90, 2);
 /*!40000 ALTER TABLE `home` ENABLE KEYS */;
 
 -- Dumping structure for table nur.manager
@@ -95,13 +86,12 @@ CREATE TABLE IF NOT EXISTS `manager` (
   PRIMARY KEY (`id_manager`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table nur.manager: ~4 rows (approximately)
+-- Dumping data for table nur.manager: ~3 rows (approximately)
 /*!40000 ALTER TABLE `manager` DISABLE KEYS */;
 INSERT INTO `manager` (`id_manager`, `name`, `last_name`, `TC`, `age`, `Phone`, `Email`) VALUES
 	(1, 'nabil', 'anan', 234234, 23, 342342, 'nan.com'),
-	(2, 'nabil', 'anan', 234234, 25, 34234234, 'nan.com'),
-	(3, 'nour', 'qw', 7777, 21, 21, '2'),
-	(6, '', '', 0, 0, 0, '');
+	(2, 'ahmed', 'sara', 234234, 25, 34234234, 'nan.com'),
+	(3, 'sara', 'sara', 7777, 21, 5525252, 'sara.com');
 /*!40000 ALTER TABLE `manager` ENABLE KEYS */;
 
 -- Dumping structure for table nur.people
@@ -126,8 +116,8 @@ CREATE TABLE IF NOT EXISTS `people` (
 -- Dumping data for table nur.people: ~2 rows (approximately)
 /*!40000 ALTER TABLE `people` DISABLE KEYS */;
 INSERT INTO `people` (`id_people`, `name`, `last_name`, `TC`, `age`, `people_num`, `id_home`, `payments`, `rent_payments`, `id_manager`) VALUES
-	(1, 'nabil', 'khawam', 23232, 22, 333, 3, 5, 5, 1),
-	(2, 'nour', 'saraa', 11, 44, 44, 4, 11, 11, 1);
+	(1, 'nabil', 'khawam', 23232, 22, 345345, 3, 90, 5000, 1),
+	(2, 'sara', 'saraa', 1134534, 44, 443453, 4, 90, 5000, 1);
 /*!40000 ALTER TABLE `people` ENABLE KEYS */;
 
 -- Dumping structure for table nur.play_ground
@@ -138,17 +128,27 @@ CREATE TABLE IF NOT EXISTS `play_ground` (
   PRIMARY KEY (`id_play`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table nur.play_ground: ~7 rows (approximately)
+-- Dumping data for table nur.play_ground: ~3 rows (approximately)
 /*!40000 ALTER TABLE `play_ground` DISABLE KEYS */;
 INSERT INTO `play_ground` (`id_play`, `play_name`, `play_num`) VALUES
-	(1, 't', '99'),
-	(3, 'sda', '2'),
-	(5, 'yy', '0'),
-	(6, '', '0'),
-	(22, 'qw3', '21'),
-	(60, 'tty', '77'),
-	(82, 'xxx', '21');
+	(1, 'salincak', '4'),
+	(3, 'kaydirak', '2'),
+	(5, 'trambolin', '3');
 /*!40000 ALTER TABLE `play_ground` ENABLE KEYS */;
+
+-- Dumping structure for table nur.play_ground_workers
+CREATE TABLE IF NOT EXISTS `play_ground_workers` (
+  `id_play` int(11) unsigned NOT NULL,
+  `id_workers` int(11) unsigned NOT NULL,
+  KEY `FK_play_ground_workers_play_ground` (`id_play`),
+  KEY `FK_play_ground_workers_workers` (`id_workers`),
+  CONSTRAINT `FK_play_ground_workers_play_ground` FOREIGN KEY (`id_play`) REFERENCES `play_ground` (`id_play`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_play_ground_workers_workers` FOREIGN KEY (`id_workers`) REFERENCES `workers` (`id_workers`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nur.play_ground_workers: ~0 rows (approximately)
+/*!40000 ALTER TABLE `play_ground_workers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `play_ground_workers` ENABLE KEYS */;
 
 -- Dumping structure for table nur.play_visor
 CREATE TABLE IF NOT EXISTS `play_visor` (
@@ -172,6 +172,23 @@ INSERT INTO `play_visor` (`id_play`, `id_supervisor`) VALUES
 	(5, 4);
 /*!40000 ALTER TABLE `play_visor` ENABLE KEYS */;
 
+-- Dumping structure for table nur.pool_workers
+CREATE TABLE IF NOT EXISTS `pool_workers` (
+  `id_pool` int(11) unsigned NOT NULL,
+  `id_workers` int(11) unsigned NOT NULL,
+  KEY `FK_pool_workers_swimming_pool` (`id_pool`),
+  KEY `FK_pool_workers_workers` (`id_workers`),
+  CONSTRAINT `FK_pool_workers_swimming_pool` FOREIGN KEY (`id_pool`) REFERENCES `swimming_pool` (`id_pool`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_pool_workers_workers` FOREIGN KEY (`id_workers`) REFERENCES `workers` (`id_workers`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nur.pool_workers: ~2 rows (approximately)
+/*!40000 ALTER TABLE `pool_workers` DISABLE KEYS */;
+INSERT INTO `pool_workers` (`id_pool`, `id_workers`) VALUES
+	(1, 1),
+	(2, 2);
+/*!40000 ALTER TABLE `pool_workers` ENABLE KEYS */;
+
 -- Dumping structure for table nur.supervisor
 CREATE TABLE IF NOT EXISTS `supervisor` (
   `id_supervisor` int(11) unsigned NOT NULL,
@@ -183,17 +200,13 @@ CREATE TABLE IF NOT EXISTS `supervisor` (
   CONSTRAINT `FK super_manager` FOREIGN KEY (`id_manager`) REFERENCES `manager` (`id_manager`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table nur.supervisor: ~8 rows (approximately)
+-- Dumping data for table nur.supervisor: ~4 rows (approximately)
 /*!40000 ALTER TABLE `supervisor` DISABLE KEYS */;
 INSERT INTO `supervisor` (`id_supervisor`, `name`, `last_name`, `id_manager`) VALUES
-	(1, 'jjj', 'ğğ', 1),
-	(2, 'nour', 'kkk', 3),
-	(3, 'yy', '', 1),
-	(4, 'lll', 'uuu', 2),
-	(6, '', '', 1),
-	(7, 'aaa', 'aaaaa', 3),
-	(21, 'wqewr', 'xxxx', 2),
-	(33, 'wwwww', 'ssssss', 2);
+	(1, 'nabil', 'nabil', 1),
+	(2, 'nour', 'nour', 3),
+	(3, 'zakaria', 'zakaria', 1),
+	(4, 'ahmed', 'ahmed', 2);
 /*!40000 ALTER TABLE `supervisor` ENABLE KEYS */;
 
 -- Dumping structure for table nur.swimming_pool
@@ -205,12 +218,11 @@ CREATE TABLE IF NOT EXISTS `swimming_pool` (
   PRIMARY KEY (`id_pool`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table nur.swimming_pool: ~4 rows (approximately)
+-- Dumping data for table nur.swimming_pool: ~3 rows (approximately)
 /*!40000 ALTER TABLE `swimming_pool` DISABLE KEYS */;
 INSERT INTO `swimming_pool` (`id_pool`, `length`, `width`, `depth`) VALUES
 	(1, 11, 0, 55),
 	(2, 88, 29, 21),
-	(8, 0, 0, 0),
 	(99, 55, 66, 0);
 /*!40000 ALTER TABLE `swimming_pool` ENABLE KEYS */;
 
@@ -231,14 +243,30 @@ CREATE TABLE IF NOT EXISTS `workers` (
   CONSTRAINT `FK__manager` FOREIGN KEY (`id_manager`) REFERENCES `manager` (`id_manager`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table nur.workers: ~4 rows (approximately)
+-- Dumping data for table nur.workers: ~3 rows (approximately)
 /*!40000 ALTER TABLE `workers` DISABLE KEYS */;
 INSERT INTO `workers` (`id_workers`, `id_manager`, `name`, `last_name`, `age`, `phone`, `TC`, `id_work_type`) VALUES
-	(1, 1, 'nour', 'nournour', 11, 11, 11, 3),
-	(2, 3, 'nour', 'nournour', 11, 11, 11, 1),
-	(3, 2, 'jll', '', 0, 0, 0, 2),
-	(4, 1, '', '', 0, 0, 0, 2);
+	(1, 1, 'nour', 'nournour', 11, 234234, 11234234, 3),
+	(2, 3, 'nour', 'nournour', 11, 23424, 11234, 1),
+	(3, 2, 'nabil', 'nabil', 22, 23234234, 23423, 2);
 /*!40000 ALTER TABLE `workers` ENABLE KEYS */;
+
+-- Dumping structure for table nur.workers_blok
+CREATE TABLE IF NOT EXISTS `workers_blok` (
+  `id_blok` int(11) unsigned NOT NULL,
+  `id_workers` int(11) unsigned NOT NULL,
+  KEY `FK_workers_blok_bloks` (`id_blok`),
+  KEY `FK_workers_blok_workers` (`id_workers`),
+  CONSTRAINT `FK_workers_blok_bloks` FOREIGN KEY (`id_blok`) REFERENCES `bloks` (`id_blok`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_workers_blok_workers` FOREIGN KEY (`id_workers`) REFERENCES `workers` (`id_workers`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nur.workers_blok: ~2 rows (approximately)
+/*!40000 ALTER TABLE `workers_blok` DISABLE KEYS */;
+INSERT INTO `workers_blok` (`id_blok`, `id_workers`) VALUES
+	(1, 1),
+	(2, 2);
+/*!40000 ALTER TABLE `workers_blok` ENABLE KEYS */;
 
 -- Dumping structure for table nur.work_type
 CREATE TABLE IF NOT EXISTS `work_type` (
@@ -250,9 +278,9 @@ CREATE TABLE IF NOT EXISTS `work_type` (
 -- Dumping data for table nur.work_type: ~3 rows (approximately)
 /*!40000 ALTER TABLE `work_type` DISABLE KEYS */;
 INSERT INTO `work_type` (`id_work_type`, `work_type`) VALUES
-	(1, 'ee'),
-	(2, 'yyy'),
-	(3, 'yy');
+	(1, 'bloks'),
+	(2, 'swimming pool'),
+	(3, 'play ground');
 /*!40000 ALTER TABLE `work_type` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

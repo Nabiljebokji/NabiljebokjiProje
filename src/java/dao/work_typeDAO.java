@@ -19,21 +19,24 @@ import util.DBConnection;
  * @author moj
  */
 public class work_typeDAO {
-    
-     private DBConnection db; 
-     
-     /**/
+
+    private DBConnection db;
+
+    /**/
     private Connection c;
-     public List<work_type> allfind() {
+
+    public List<work_type> allfind() {
         List<work_type> worktypelist = new ArrayList();
         try {
 
             Statement st = getC().createStatement();
             ResultSet rs = st.executeQuery("select * from work_type");
             while (rs.next()) {
-               tmp.setId_work_type(rs.getLong("id_work_type"));
-               tmp.setWork_type(rs.getString("work_type"));
-              
+                work_type tmp = new work_type();
+
+                tmp.setId_work_type(rs.getLong("id_work_type"));
+                tmp.setWork_type(rs.getString("work_type"));
+
                 worktypelist.add(tmp);
             }
         } catch (SQLException ex) {
@@ -43,33 +46,36 @@ public class work_typeDAO {
         return worktypelist;
 
     }
-    public work_type find(long id){
-            work_type l=null;
-             try {
+
+    public work_type find(long id) {
+        work_type l = null;
+        try {
 
             Statement st = getC().createStatement();
-            ResultSet rs = st.executeQuery("select * from work_type where id_work_type="+id);
+            ResultSet rs = st.executeQuery("select * from work_type where id_work_type=" + id);
             rs.next();
-            l=new work_type();
+            l = new work_type();
             l.setId_work_type(rs.getLong("id_work_type"));
-             l.setWork_type(rs.getString("work_type"));
-            
+            l.setWork_type(rs.getString("work_type"));
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-        }  
-             return l;
+        }
+        return l;
     }
-               public DBConnection getDb(){
-     if(this.db==null)
-         this.db=new DBConnection();
+
+    public DBConnection getDb() {
+        if (this.db == null) {
+            this.db = new DBConnection();
+        }
         return db;
     }
 
     public Connection getC() {
-        if(this.c==null)
-            this.c=this.getDb().connect();
+        if (this.c == null) {
+            this.c = this.getDb().connect();
+        }
         return c;
-    }    
-   
-}
+    }
 
+}

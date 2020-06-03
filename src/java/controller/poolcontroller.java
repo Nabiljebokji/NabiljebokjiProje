@@ -52,10 +52,9 @@ public class poolcontroller implements Serializable {
 
     }
 
-    public String create() {
-        this.getPooldao().insert(this.pool);
+    public void create() {
+        this.getPooldao().create(this.pool);
         this.pool = new swimming_pool();
-       return"pool";
     }
 
     public poolcontroller() {

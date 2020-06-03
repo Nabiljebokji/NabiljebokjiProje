@@ -24,25 +24,24 @@ public class workerDAO {
     private DBConnection db;
     private Connection c;
     private managerDAO managerdao;
-   private work_typeDAO worktypedao;
-  
-    public List<workers> findAll(int page,int pagesize) {
+    private work_typeDAO worktypedao;
+
+    public List<workers> findAll(int page, int pagesize) {
         List<workers> workerlist = new ArrayList();
-        int start=(page-1)*pagesize;
+        int start = (page - 1) * pagesize;
         try {
-              PreparedStatement pst =this.getC().prepareStatement("select * from workers order by id_workers asc limit "+start+","+pagesize);
+            PreparedStatement pst = this.getC().prepareStatement("select * from workers order by id_workers asc limit " + start + "," + pagesize);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 workers tmp = new workers();
                 tmp.setId_workers(rs.getLong("id_workers"));
-                /// هلا تمام هاد الميثود كان ناقص 
                 tmp.setManager(this.getManagerdao().find(rs.getInt("id_manager")));
                 tmp.setName(rs.getString("name"));
                 tmp.setLast_name(rs.getString("last_name"));
                 tmp.setAge(rs.getInt("age"));
                 tmp.setPhone(rs.getInt("phone"));
                 tmp.setTC(rs.getInt("TC"));
-                 tmp.setWork_type(this.getWorktypedao().find(rs.getLong("id_work_type")));
+                tmp.setWork_type(this.getWorktypedao().find(rs.getLong("id_work_type")));
                 workerlist.add(tmp);
             }
         } catch (SQLException ex) {
@@ -52,14 +51,15 @@ public class workerDAO {
         return workerlist;
 
     }
-     public int count() {
-      int count=0;
+
+    public int count() {
+        int count = 0;
 
         try {
-              PreparedStatement pst =this.getC().prepareStatement("select count(id_workers) as workers_count from workers");
+            PreparedStatement pst = this.getC().prepareStatement("select count(id_workers) as workers_count from workers");
             ResultSet rs = pst.executeQuery();
             rs.next();
-            count=rs.getInt("workers_count");
+            count = rs.getInt("workers_count");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
 
@@ -82,22 +82,11 @@ public class workerDAO {
         return worktypedao;
     }
 
-   /* public void insert(workers worker) {
-        try {
-            Statement st = getC().createStatement();
-            //st.executeUpdate("insert into workers(name) values('" + worker.getName() + "')");
-            st.executeUpdate("insert into workers (id_workers , id_manager ,name,last_name,age,phone,TC ) values('" + worker.getId_workers() + "','" + worker.getManager().getId_manager() + "', '" + worker.getName() + "' , '" + worker.getLast_name() + "' , '" + worker.getAge() + "' ,'" + worker.getPhone() + "' , '" + worker.getTC() + "' ) ");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-
-        }
-    }*/
-
     public void delete(workers wor) {
         try {
-              PreparedStatement pst =this.getC().prepareStatement("delete from workers where id_workers=?");
-           pst.setLong(1,wor.getId_workers());
-           pst.executeUpdate();
+            PreparedStatement pst = this.getC().prepareStatement("delete from workers where id_workers=?");
+            pst.setLong(1, wor.getId_workers());
+            pst.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -105,17 +94,17 @@ public class workerDAO {
 
     public void update(workers wor, long selectedmanager, long selectedworktype) {
         try {
-            PreparedStatement pst =this.getC().prepareStatement("update workers set id_workers=? , id_manager=?,name=?,last_name=?,age=?,phone=?,TC=?,id_work_type=? where id_workers=? ");
+            PreparedStatement pst = this.getC().prepareStatement("update workers set id_workers=? , id_manager=?,name=?,last_name=?,age=?,phone=?,TC=?,id_work_type=? where id_workers=? ");
             pst.setLong(1, wor.getId_workers());
             pst.setLong(2, selectedmanager);
-           pst.setString(3, wor.getName());
-           pst.setString(4, wor.getLast_name());
-           pst.setInt(5, wor.getAge());
+            pst.setString(3, wor.getName());
+            pst.setString(4, wor.getLast_name());
+            pst.setInt(5, wor.getAge());
             pst.setInt(6, wor.getPhone());
             pst.setInt(7, wor.getTC());
             pst.setLong(8, selectedworktype);
-             pst.setLong(9, wor.getId_workers());
-             
+            pst.setLong(9, wor.getId_workers());
+
             pst.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -136,9 +125,9 @@ public class workerDAO {
         return c;
     }
 
-      public void create(workers worker, Long selectedmanager, Long selectedworktype) {
+    public void create(workers worker, Long selectedmanager, Long selectedworktype) {
         try {
-            /**/
+
             PreparedStatement pst = this.getC().prepareStatement("insert into workers (id_workers , id_manager ,name,last_name,age,phone,TC ,id_work_type) values(?,?,?,?,?,?,?,?)");
             pst.setLong(1, worker.getId_workers());
             pst.setLong(2, selectedmanager);
@@ -180,8 +169,7 @@ public class workerDAO {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-    
+
     }
-    
+
 }
- 

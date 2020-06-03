@@ -26,7 +26,7 @@ public class loginController implements Serializable {
 
         if (this.user.getUsername().equals("admin") && this.user.getPassword().equals("123")) {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("valid_user", this.user);
-            return "/secret/secret?faces-redirect=true";
+            return "/module/manager/manager?faces-redirect=true";
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Username or password is wrong"));
             return "/login";
